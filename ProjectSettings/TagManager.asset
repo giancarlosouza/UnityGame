@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Vanish
+  - tagTeste
   layers:
   - Default
   - TransparentFX

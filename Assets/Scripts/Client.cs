@@ -10,11 +10,10 @@ public class Client : MonoBehaviour {
 	public TcpClient mySocket;
 
 	public string conHost = "127.0.0.1";
-	public int conPort = 25000;
+	public int conPort = 2400;
 
 	public NetworkStream theStream;
 	public StreamWriter theWriter;
-	public StreamReader theReader;
 
 	public bool socketReady = false;
 	// Use this for initialization
@@ -32,9 +31,9 @@ public class Client : MonoBehaviour {
 
 				theStream = mySocket.GetStream();
 				theWriter = new StreamWriter(theStream);
-				theReader = new StreamReader(theStream);
 				socketReady = true;
-				print("Sphere Ready");
+				theWriter.Write(this.name + "\n");
+				theWriter.Flush();
 			}
 
 		}
@@ -43,14 +42,11 @@ public class Client : MonoBehaviour {
 		}
 	}
 
-	/*void OnCollisionStay(Collision collision) {
-		foreach (ContactPoint contact in collision.contacts) {
-			print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
-		}
-	}
-
 	void OnTriggerStay(Collider other){
 		Transform trOther = other.gameObject.GetComponent<Transform>();
-		print ("On collider: " + trOther.position.z);
-	}*/
+		//print (this.name + " hit object " + trOther.name);
+
+		theWriter.Write(this.name + " hit object " + trOther.name+"\n");
+		theWriter.Flush();
+	}
 }

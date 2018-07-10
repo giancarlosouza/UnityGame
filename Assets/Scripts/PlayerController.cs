@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour {
 				theReader = new StreamReader(theStream);
 				socketReady = true;
 				print("Sphere Ready");
+				theWriter.Write("Agent\n");
+				theWriter.Flush();
 			}
 
 		}
@@ -66,15 +68,15 @@ public class PlayerController : MonoBehaviour {
 
 		/*String tmpString = moveHorizontal + ", " + moveVertical + "\n";
 		theWriter.Write(tmpString);
-		theWriter.Flush();
+		theWriter.Flush();*/
 
-		String result = "";
+		//String result = "";
 		if (theStream != null && theStream.DataAvailable) {
 			Byte[] inStream = new Byte[mySocket.SendBufferSize];
 			theStream.Read(inStream, 0, inStream.Length);
 			print (System.Text.Encoding.UTF8.GetString (inStream).TrimEnd ('\0'));
 			//movementNow = doSomething(System.Text.Encoding.UTF8.GetString(inStream).TrimEnd('\0'));
-		}*/
+		}
 	}
 
 	public string doSomething(string move){
@@ -115,7 +117,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}*/
 
-	public void OnTriggerStay(Collider other){
+	/*public void OnTriggerStay(Collider other){
 		Transform trOther = other.gameObject.GetComponent<Transform>();
 		//print ("On collider: " + trOther.position.z);
 
@@ -128,5 +130,5 @@ public class PlayerController : MonoBehaviour {
 			theStream.Read(inStream, 0, inStream.Length);
 			print (System.Text.Encoding.UTF8.GetString (inStream).TrimEnd ('\0'));
 		}
-	}
+	}*/
 }
