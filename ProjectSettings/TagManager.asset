@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Vanish
   - tagTeste
+  - sound
+  - surprise
   layers:
   - Default
   - TransparentFX

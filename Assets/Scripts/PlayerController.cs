@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using System.IO;
 using System.Net.Sockets;
+using System.Net;
+using System.Text; 
 using System;
 
 public class PlayerController : MonoBehaviour {
@@ -13,48 +16,31 @@ public class PlayerController : MonoBehaviour {
 	private string movementNow = "0, 0\n";
 
 	public string conHost = "127.0.0.1";
-	public int conPort = 2400;
+	public int conPort = 1220;
 
+	public TcpListener server;
 	public TcpClient mySocket;
+	public Thread mThread;
 
 	public NetworkStream theStream;
 	public StreamWriter theWriter;
 	public StreamReader theReader;
 
 	public bool socketReady = false;
+	private bool mRunning;
 
 	public List<string> zPos;
 	private string otherZPos = "\n";
 
 	void Start(){
+		speed = 10;
 		rb = GetComponent<Rigidbody> ();
 		tr = GetComponent<Transform> ();
 		zPos = new List<string> ();
 
-		try {
-			mySocket = new TcpClient();
-			var result = mySocket.BeginConnect(conHost,conPort,null, null);
-			var success = result.AsyncWaitHandle.WaitOne(500);
-
-			if (!success)
-			{
-				throw new Exception("Failed to connect.");
-				socketReady = false;
-			}else{
-
-				theStream = mySocket.GetStream();
-				theWriter = new StreamWriter(theStream);
-				theReader = new StreamReader(theStream);
-				socketReady = true;
-				print("Sphere Ready");
-				theWriter.Write("Agent\n");
-				theWriter.Flush();
-			}
-
-		}
-		catch (Exception e) {
-			Debug.Log("Socket error:" + e);
-		}
+		/*mThread = new Thread (new ThreadStart(Listen)); 		
+		mThread.IsBackground = true; 		
+		mThread.Start();*/
 	}
 
 	public void FixedUpdate () {
@@ -71,12 +57,12 @@ public class PlayerController : MonoBehaviour {
 		theWriter.Flush();*/
 
 		//String result = "";
-		if (theStream != null && theStream.DataAvailable) {
+		/*if (theStream != null && theStream.DataAvailable) {
 			Byte[] inStream = new Byte[mySocket.SendBufferSize];
 			theStream.Read(inStream, 0, inStream.Length);
 			print (System.Text.Encoding.UTF8.GetString (inStream).TrimEnd ('\0'));
 			//movementNow = doSomething(System.Text.Encoding.UTF8.GetString(inStream).TrimEnd('\0'));
-		}
+		}*/
 	}
 
 	public string doSomething(string move){
@@ -91,6 +77,35 @@ public class PlayerController : MonoBehaviour {
 		}
 		this.rb.AddForce (movement * speed);
 		return movement.x + ", " + movement.z + "\n";
+	}
+
+	public void Listen(){
+		try { 			
+			// Create listener on localhost port 8052. 			
+			server = new TcpListener(IPAddress.Parse("127.0.0.1"), 8052); 			
+			server.Start();              
+			Debug.Log("Server is listening");              
+			Byte[] bytes = new Byte[1024];  			
+			while (true) { 				
+				using (mySocket = server.AcceptTcpClient()) { 					
+					// Get a stream object for reading 					
+					using (NetworkStream stream = mySocket.GetStream()) { 						
+						int length; 						
+						// Read incomming stream into byte arrary. 						
+						while ((length = stream.Read(bytes, 0, bytes.Length)) != 0) { 							
+							var incommingData = new byte[length]; 							
+							Array.Copy(bytes, 0, incommingData, 0, length);  							
+							// Convert byte array to string message. 							
+							string clientMessage = Encoding.ASCII.GetString(incommingData); 							
+							Debug.Log("client message received as: " + clientMessage); 						
+						} 					
+					} 				
+				} 			
+			} 		
+		} 		
+		catch (SocketException socketException) { 			
+			Debug.Log("SocketException " + socketException.ToString()); 		
+		}
 	}
 
 	/*public void getCloser(string move, float otherZPosition){

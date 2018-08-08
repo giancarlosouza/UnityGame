@@ -51,10 +51,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Chars\UnityChan\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Chars\UnityChan\Scripts\FaceUpdate.cs" />
+     <Compile Include="Assets\Chars\UnityChan\Scripts\IdleChanger.cs" />
+     <Compile Include="Assets\Chars\UnityChan\Scripts\SceneLoader.cs" />
+     <Compile Include="Assets\Chars\UnityChan\Scripts\ThirdPersonCamera.cs" />
+     <Compile Include="Assets\Chars\UnityChan\Scripts\UnityChanControlScriptWithRgidBody.cs" />
+     <Compile Include="Assets\Scripts\CharController.cs" />
      <Compile Include="Assets\Scripts\Client.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Server.cs" />
      <Compile Include="Assets\teste.cs" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
+     <None Include="Assets\Chars\UnityChan\license.txt" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
+     <None Include="Assets\Chars\UnityChan\Stage\Shader\AlphaMask.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
+     <None Include="Assets\Chars\Rhino\Sheder\StandardDoubleSided.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
+     <None Include="Assets\Chars\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

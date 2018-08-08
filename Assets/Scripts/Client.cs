@@ -18,7 +18,7 @@ public class Client : MonoBehaviour {
 	public bool socketReady = false;
 	// Use this for initialization
 	void Start () {
-		try {
+		/*try {
 			mySocket = new TcpClient();
 			var result = mySocket.BeginConnect(conHost,conPort,null, null);
 			var success = result.AsyncWaitHandle.WaitOne(500);
@@ -39,14 +39,40 @@ public class Client : MonoBehaviour {
 		}
 		catch (Exception e) {
 			Debug.Log("Socket error:" + e);
-		}
+		}*/
 	}
 
 	void OnTriggerStay(Collider other){
-		Transform trOther = other.gameObject.GetComponent<Transform>();
-		//print (this.name + " hit object " + trOther.name);
+		if(!other.name.Equals("Character")){
+			if (this.name.Equals ("Hearing")) {
+				audioTransformations (other);
+			} else {
+				print (this.name + " hit object " + other.transform.name);
+			}
+		}
 
-		theWriter.Write(this.name + " hit object " + trOther.name+"\n");
+		/*theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
 		theWriter.Flush();
+		//theStream.Flush();*/
+	}
+
+	void audioTransformations(Collider other){
+		if (this.name.Equals("Hearing") && other.CompareTag ("sound")) {
+			AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
+			float actualVolume = audioSource.volume;
+			print (actualVolume);
+
+			float distance = Vector3.Distance (this.gameObject.transform.position, other.transform.position);
+			audioSource.volume = (other.bounds.extents.y - distance) / other.bounds.extents.y;
+		}
+	}
+
+	void OnTriggerEnter(Collider other){
+		if (this.name.Equals("Hearing") && other.CompareTag ("surprise")) {
+			AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
+			audioSource.Play ();
+			audioSource.volume = 1f;
+			print ("Danger");
+		}
 	}
 }
