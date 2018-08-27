@@ -18,7 +18,7 @@ public class Client : MonoBehaviour {
 	public bool socketReady = false;
 	// Use this for initialization
 	void Start () {
-		/*try {
+		try {
 			mySocket = new TcpClient();
 			var result = mySocket.BeginConnect(conHost,conPort,null, null);
 			var success = result.AsyncWaitHandle.WaitOne(500);
@@ -39,21 +39,21 @@ public class Client : MonoBehaviour {
 		}
 		catch (Exception e) {
 			Debug.Log("Socket error:" + e);
-		}*/
+		}
 	}
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
 			if (this.name.Equals ("Hearing")) {
 				audioTransformations (other);
-			} else {
-				print (this.name + " hit object " + other.transform.name);
 			}
+			theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
+			theWriter.Flush();
 		}
 
-		/*theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
-		theWriter.Flush();
-		//theStream.Flush();*/
+		//theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
+		//theWriter.Flush();
+		//theStream.Flush();
 	}
 
 	void audioTransformations(Collider other){
