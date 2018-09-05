@@ -5,12 +5,12 @@ using System.IO;
 using System.Net.Sockets;
 using System;
 
-public class Client : MonoBehaviour {
+public class ClientHearing : MonoBehaviour {
 
 	public TcpClient mySocket;
 
 	public string conHost = "127.0.0.1";
-	public int conPort = 2400;
+	public int conPort = 2405;
 
 	public NetworkStream theStream;
 	public StreamWriter theWriter;
@@ -44,26 +44,10 @@ public class Client : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
-			if (this.name.Equals ("Hearing")) {
-				audioTransformations (other);
-			}
-			if (!checkOnChildrenIntersection (other)) {
-				theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
-				theWriter.Flush();
-			}
+			audioTransformations (other);
+			theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
+			theWriter.Flush();
 		}
-	}
-
-	Boolean checkOnChildrenIntersection(Collider other){
-		if (this.gameObject.transform.childCount != 0) {
-			for(int i = 0; i < this.gameObject.transform.childCount; i++){
-				Bounds childBounds = this.gameObject.transform.GetChild (i).GetComponent<Collider> ().bounds;
-				if(childBounds.Intersects(other.bounds)){
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	void audioTransformations(Collider other){
@@ -78,7 +62,7 @@ public class Client : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (this.name.Equals("Hearing") && other.CompareTag ("surprise")) {
+		if (other.CompareTag ("surprise")) {
 			AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
 			audioSource.Play ();
 			audioSource.volume = 1f;
