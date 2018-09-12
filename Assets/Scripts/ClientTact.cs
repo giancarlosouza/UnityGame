@@ -42,7 +42,11 @@ public class ClientTact : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
-			theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
+			theWriter.Write(other.transform.name + "," 
+				+ other.transform.position.x + "," 
+				+ other.transform.position.y + "," 
+				+ other.transform.position.z + ","
+				+ Time.realtimeSinceStartup.ToString() + "\n");
 			theWriter.Flush();
 		}
 	}

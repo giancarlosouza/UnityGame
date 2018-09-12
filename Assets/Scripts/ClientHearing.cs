@@ -16,7 +16,7 @@ public class ClientHearing : MonoBehaviour {
 	public StreamWriter theWriter;
 
 	public bool socketReady = false;
-	// Use this for initialization
+
 	void Start () {
 		try {
 			mySocket = new TcpClient();
@@ -32,8 +32,6 @@ public class ClientHearing : MonoBehaviour {
 				theStream = mySocket.GetStream();
 				theWriter = new StreamWriter(theStream);
 				socketReady = true;
-				theWriter.Write(this.name + "\n");
-				theWriter.Flush();
 			}
 
 		}
@@ -45,7 +43,11 @@ public class ClientHearing : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
 			audioTransformations (other);
-			theWriter.Write(this.name + " hit object " + other.transform.name+"\n");
+			theWriter.Write(other.transform.name + "," 
+				+ other.transform.position.x + "," 
+				+ other.transform.position.y + "," 
+				+ other.transform.position.z + ","
+				+ Time.realtimeSinceStartup.ToString() + "\n");
 			theWriter.Flush();
 		}
 	}
