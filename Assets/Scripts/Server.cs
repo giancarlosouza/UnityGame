@@ -96,6 +96,6 @@ public class Server : MonoBehaviour {
 		mThread.Join(500);
 		mThread2.Join (500);
 		tcp_Listener.Stop ();
-		UnityEditor.EditorApplication.isPlaying = false;
+		//UnityEditor.EditorApplication.isPlaying = false;
 	}
 }

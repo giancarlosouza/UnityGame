@@ -16,8 +16,15 @@ public class ClientVisionFar : MonoBehaviour {
 	public StreamWriter theWriter;
 
 	public bool socketReady = false;
+	private float gameTime;
+	private float timeNow;
+	public float timeToWaitBeforeSendPerception = 0.05f;
+	public float timeRangeToSendPerception = 0.0005f;
+	private float sendCycleTime;
 
 	void Start () {
+		gameTime = Time.realtimeSinceStartup;
+		sendCycleTime = timeToWaitBeforeSendPerception + timeRangeToSendPerception;
 		try {
 			mySocket = new TcpClient();
 			var result = mySocket.BeginConnect(conHost,conPort,null, null);
@@ -42,15 +49,18 @@ public class ClientVisionFar : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
-			if (!checkOnChildrenIntersection (other)) {
-				theWriter.Write(other.transform.name + "," 
-					+ other.transform.position.x + "," 
-					+ other.transform.position.y + "," 
-					+ other.transform.position.z + ","
-					+ Time.realtimeSinceStartup.ToString() + "\n");
-				theWriter.Flush();
+			if (Time.realtimeSinceStartup - gameTime > timeToWaitBeforeSendPerception) {
+				if (!checkOnChildrenIntersection (other)) {
+					theWriter.Write ("p(" + other.transform.name + ","
+						+ other.transform.position.x + ","
+						+ other.transform.position.y + ","
+						+ other.transform.position.z + ").,"
+						+ Time.realtimeSinceStartup.ToString () + "\n");
+					theWriter.Flush ();
+				}
 			}
 		}
+		timeNow = Time.realtimeSinceStartup;
 	}
 
 	Boolean checkOnChildrenIntersection(Collider other){
@@ -63,5 +73,11 @@ public class ClientVisionFar : MonoBehaviour {
 			}
 		}
 		return false;
+	}
+
+	public void resetTimer(){
+		if(timeNow - gameTime > sendCycleTime){
+			gameTime = timeNow;
+		}
 	}
 }

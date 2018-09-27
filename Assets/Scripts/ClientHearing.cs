@@ -16,8 +16,15 @@ public class ClientHearing : MonoBehaviour {
 	public StreamWriter theWriter;
 
 	public bool socketReady = false;
+	private float gameTime;
+	private float timeNow;
+	public float timeToWaitBeforeSendPerception = 0.05f;
+	public float timeRangeToSendPerception = 0.0005f;
+	private float sendCycleTime;
 
 	void Start () {
+		gameTime = Time.realtimeSinceStartup;
+		sendCycleTime = timeToWaitBeforeSendPerception + timeRangeToSendPerception;
 		try {
 			mySocket = new TcpClient();
 			var result = mySocket.BeginConnect(conHost,conPort,null, null);
@@ -43,13 +50,16 @@ public class ClientHearing : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
 			audioTransformations (other);
-			theWriter.Write(other.transform.name + "," 
-				+ other.transform.position.x + "," 
-				+ other.transform.position.y + "," 
-				+ other.transform.position.z + ","
-				+ Time.realtimeSinceStartup.ToString() + "\n");
-			theWriter.Flush();
+			if (Time.realtimeSinceStartup - gameTime > timeToWaitBeforeSendPerception) {
+				theWriter.Write ("p(" + other.transform.name + ","
+					+ other.transform.position.x + ","
+					+ other.transform.position.y + ","
+					+ other.transform.position.z + ").,"
+					+ Time.realtimeSinceStartup.ToString () + "\n");
+				theWriter.Flush ();
+			}
 		}
+		timeNow = Time.realtimeSinceStartup;
 	}
 
 	void audioTransformations(Collider other){
@@ -69,6 +79,12 @@ public class ClientHearing : MonoBehaviour {
 			audioSource.Play ();
 			audioSource.volume = 1f;
 			print ("Danger");
+		}
+	}
+
+	public void resetTimer(){
+		if(timeNow - gameTime > sendCycleTime){
+			gameTime = timeNow;
 		}
 	}
 }

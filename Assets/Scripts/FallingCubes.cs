@@ -21,6 +21,9 @@ public class FallingCubes : MonoBehaviour {
 
 	void FixedUpdate(){
 		this.count++;
+		if(this.count > 1000){
+			CancelInvoke ();
+		}
 	}
 
 	void Spawn () {

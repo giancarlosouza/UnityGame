@@ -17,7 +17,15 @@ public class ClientTact : MonoBehaviour {
 
 	public bool socketReady = false;
 
+	private float gameTime;
+	private float timeNow;
+	public float timeToWaitBeforeSendPerception = 0.05f;
+	public float timeRangeToSendPerception = 0.0005f;
+	private float sendCycleTime;
+
 	void Start () {
+		gameTime = Time.realtimeSinceStartup;
+		sendCycleTime = timeToWaitBeforeSendPerception + timeRangeToSendPerception;
 		try {
 			mySocket = new TcpClient();
 			var result = mySocket.BeginConnect(conHost,conPort,null, null);
@@ -42,12 +50,21 @@ public class ClientTact : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
-			theWriter.Write(other.transform.name + "," 
-				+ other.transform.position.x + "," 
-				+ other.transform.position.y + "," 
-				+ other.transform.position.z + ","
-				+ Time.realtimeSinceStartup.ToString() + "\n");
-			theWriter.Flush();
+			if (Time.realtimeSinceStartup - gameTime > timeToWaitBeforeSendPerception) {
+				theWriter.Write ("p(" + other.transform.name + ","
+					+ other.transform.position.x + ","
+					+ other.transform.position.y + ","
+					+ other.transform.position.z + ").,"
+					+ Time.realtimeSinceStartup.ToString () + "\n");
+				theWriter.Flush ();
+			}
+		}
+		timeNow = Time.realtimeSinceStartup;
+	}
+
+	public void resetTimer(){
+		if(timeNow - gameTime > sendCycleTime){
+			gameTime = timeNow;
 		}
 	}
 }

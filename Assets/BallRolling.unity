@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 406986682}
   - component: {fileID: 406986681}
   m_Layer: 0
-  m_Name: Wall (3)
+  m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -849,6 +849,8 @@ MonoBehaviour:
   conHost: 127.0.0.1
   conPort: 2402
   socketReady: 0
+  timeToWaitBeforeSendPerception: 0.05
+  timeRangeToSendPerception: 0.0005
 --- !u!135 &740465549
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1001,6 +1003,8 @@ MonoBehaviour:
   conHost: 127.0.0.1
   conPort: 2403
   socketReady: 0
+  timeToWaitBeforeSendPerception: 0.05
+  timeRangeToSendPerception: 0.0005
 --- !u!135 &1051565490
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1025,7 +1029,7 @@ GameObject:
   - component: {fileID: 1056277509}
   - component: {fileID: 1056277508}
   m_Layer: 0
-  m_Name: Wall (2)
+  m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1251,6 +1255,8 @@ MonoBehaviour:
   conHost: 127.0.0.1
   conPort: 2401
   socketReady: 0
+  timeToWaitBeforeSendPerception: 0.05
+  timeRangeToSendPerception: 0.0005
 --- !u!1 &1171036540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,6 +1314,8 @@ MonoBehaviour:
   conHost: 127.0.0.1
   conPort: 2405
   socketReady: 0
+  timeToWaitBeforeSendPerception: 0.05
+  timeRangeToSendPerception: 0.0005
 --- !u!1 &1554535638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,7 +1328,7 @@ GameObject:
   - component: {fileID: 1554535640}
   - component: {fileID: 1554535639}
   m_Layer: 0
-  m_Name: Wall (1)
+  m_Name: Wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1449,6 +1457,8 @@ MonoBehaviour:
   conHost: 127.0.0.1
   conPort: 2404
   socketReady: 0
+  timeToWaitBeforeSendPerception: 0.05
+  timeRangeToSendPerception: 0.0005
 --- !u!1 &1831629826 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 7ff94e84f9d81974eb99f9253fe07013, type: 2}
@@ -1487,6 +1497,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   turnSpeed: 0
+  conHost: 127.0.0.1
+  conPort: 2600
+  visionFar: {fileID: 1166609181}
+  visionMed: {fileID: 740465548}
+  visionClose: {fileID: 1051565489}
+  tact: {fileID: 1603990941}
+  hearing: {fileID: 1171036543}
 --- !u!81 &1831629831
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1520,6 +1537,7 @@ GameObject:
   - component: {fileID: 2007358122}
   - component: {fileID: 2007358121}
   - component: {fileID: 2007358120}
+  - component: {fileID: 2007358125}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1593,6 +1611,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2007358125
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2007358119}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2135650320
 Prefab:
   m_ObjectHideFlags: 0
