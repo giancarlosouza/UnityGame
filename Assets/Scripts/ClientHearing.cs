@@ -48,29 +48,26 @@ public class ClientHearing : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		if(!other.name.Equals("Character")){
+		if(other.CompareTag ("sound")){
 			audioTransformations (other);
-			if (Time.realtimeSinceStartup - gameTime > timeToWaitBeforeSendPerception) {
-				theWriter.Write ("p(" + other.transform.name + ","
-					+ other.transform.position.x + ","
-					+ other.transform.position.y + ","
-					+ other.transform.position.z + ").,"
-					+ Time.realtimeSinceStartup.ToString () + "\n");
-				theWriter.Flush ();
-			}
 		}
 		timeNow = Time.realtimeSinceStartup;
 	}
 
 	void audioTransformations(Collider other){
-		if (this.name.Equals("Hearing") && other.CompareTag ("sound")) {
-			AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
-			float actualVolume = audioSource.volume;
-			print (actualVolume);
+		AudioSource audioSource = other.gameObject.GetComponent<AudioSource>();
+		float actualVolume = audioSource.volume;
 
-			float distance = Vector3.Distance (this.gameObject.transform.position, other.transform.position);
-			audioSource.volume = (other.bounds.extents.y - distance) / other.bounds.extents.y;
-		}
+		theWriter.Write ("p(" + other.transform.name + ","
+			+ other.transform.position.x + ","
+			+ other.transform.position.y + ","
+			+ other.transform.position.z + ","
+			+ actualVolume + ").,"
+			+ Time.realtimeSinceStartup.ToString () + "\n");
+		theWriter.Flush ();
+
+		float distance = Vector3.Distance (this.gameObject.transform.position, other.transform.position);
+		audioSource.volume = (other.bounds.extents.y - distance) / other.bounds.extents.y;
 	}
 
 	void OnTriggerEnter(Collider other){

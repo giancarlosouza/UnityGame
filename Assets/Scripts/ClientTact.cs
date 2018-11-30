@@ -50,14 +50,12 @@ public class ClientTact : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if(!other.name.Equals("Character")){
-			if (Time.realtimeSinceStartup - gameTime > timeToWaitBeforeSendPerception) {
-				theWriter.Write ("p(" + other.transform.name + ","
-					+ other.transform.position.x + ","
-					+ other.transform.position.y + ","
-					+ other.transform.position.z + ").,"
-					+ Time.realtimeSinceStartup.ToString () + "\n");
-				theWriter.Flush ();
-			}
+			theWriter.Write ("p(" + other.transform.name + ","
+				+ other.transform.position.x + ","
+				+ other.transform.position.y + ","
+				+ other.transform.position.z + ").,"
+				+ Time.realtimeSinceStartup.ToString () + "\n");
+			theWriter.Flush ();
 		}
 		timeNow = Time.realtimeSinceStartup;
 	}

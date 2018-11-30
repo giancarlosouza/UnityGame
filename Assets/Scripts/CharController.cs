@@ -34,7 +34,7 @@ public class CharController : MonoBehaviour {
 		mThread = new Thread (new ThreadStart(Listen)); 		
 		mThread.IsBackground = true; 		
 		mThread.Start();
-		threadTimer = new Thread ((new ThreadStart(testando)));
+		threadTimer = new Thread ((new ThreadStart(timeController)));
 		threadTimer.Start ();
 	}
 
@@ -86,7 +86,7 @@ public class CharController : MonoBehaviour {
 		}
 	}
 
-	public void testando(){
+	public void timeController(){
 		while(running){
 			visionFar.resetTimer ();
 			visionMed.resetTimer ();

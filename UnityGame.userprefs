@@ -1,14 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ClientVisionFar.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FallingCubes.cs">
     <Files>
-      <File FileName="Assets\Scripts\CharController.cs" Line="33" Column="17" />
-      <File FileName="Assets\Scripts\ClientVisionFar.cs" Line="63" Column="38" />
-      <File FileName="Assets\Scripts\ClientVisionMed.cs" Line="23" Column="29" />
-      <File FileName="Assets\Scripts\ClientVisionClose.cs" Line="23" Column="29" />
-      <File FileName="Assets\Scripts\ClientTact.cs" Line="28" Column="78" />
-      <File FileName="Assets\Scripts\ClientHearing.cs" Line="27" Column="78" />
-      <File FileName="Assets\Scripts\FallingCubes.cs" Line="25" Column="20" />
+      <File FileName="Assets\Scripts\CharController.cs" Line="36" Column="19" />
+      <File FileName="Assets\Scripts\ClientVisionFar.cs" Line="52" Column="4" />
+      <File FileName="Assets\Scripts\ClientVisionMed.cs" Line="52" Column="4" />
+      <File FileName="Assets\Scripts\ClientVisionClose.cs" Line="52" Column="4" />
+      <File FileName="Assets\Scripts\ClientTact.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ClientHearing.cs" Line="16" Column="26" />
+      <File FileName="Assets\Scripts\FallingCubes.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GroundScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
